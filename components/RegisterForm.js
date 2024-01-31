@@ -8,6 +8,8 @@ function RegisterForm({ user, updateUser }) {
   const [formData, setFormData] = useState({
     bio: '',
     uid: user.uid,
+    first_name: '',
+    last_name: '',
   });
 
   const handleSubmit = (e) => {
@@ -17,10 +19,19 @@ function RegisterForm({ user, updateUser }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Gamer Bio</Form.Label>
+      <Form.Group className="mb-3" controlId="formfirstname">
+        <Form.Label>First name</Form.Label>
+        <Form.Control as="textarea" name="firstName" required placeholder="Enter your First Name" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formlastname">
+        <Form.Label>Last Name</Form.Label>
+        <Form.Control as="textarea" name="lastName" required placeholder="Enter your Bio" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBio">
+        <Form.Label>bio</Form.Label>
         <Form.Control as="textarea" name="bio" required placeholder="Enter your Bio" onChange={({ target }) => setFormData((prev) => ({ ...prev, [target.name]: target.value }))} />
-        <Form.Text className="text-muted">Let other gamers know a little bit about you...</Form.Text>
       </Form.Group>
       <Button variant="primary" type="submit">
         Submit

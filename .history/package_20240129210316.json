@@ -1,8 +1,8 @@
 {
-  "name": "GeoWizards",
+  "name": "next-firebase-starter",
   "private": true,
   "version": "1.0.0",
-  "author": "Jonathan Slater",
+  "author": "Trinity Christiana",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

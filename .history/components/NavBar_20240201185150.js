@@ -20,13 +20,10 @@ export default function NavBar() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Link passHref href="/profile">
-              <Nav.Link>Profile</Nav.Link>
+              <Nav.Link>Create Book</Nav.Link>
             </Link>
             <Link passHref href="/viewPost/">
               <Nav.Link>viewPost</Nav.Link>
-            </Link>
-            <Link passHref href="/postForm">
-              <Nav.Link>New Post</Nav.Link>
             </Link>
             <Button variant="danger" onClick={signOut}>
               Sign Out

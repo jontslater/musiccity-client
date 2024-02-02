@@ -25,7 +25,7 @@ export default function NavBar() {
             <Link passHref href="/viewPost/">
               <Nav.Link>viewPost</Nav.Link>
             </Link>
-            <Link passHref href="/postForm">
+            <Link passHref href="postForm">
               <Nav.Link>New Post</Nav.Link>
             </Link>
             <Button variant="danger" onClick={signOut}>

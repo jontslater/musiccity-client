@@ -1,25 +1,33 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Button } from 'react-bootstrap';
-import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
+import { getAllPost } from '../api/posts';
+import PostCard from '../components/postCards';
 
 function Home() {
+  const [posts, setPosts] = useState([]); // Remove PostCard from here
   const { user } = useAuth();
+
+  const getPosts = () => {
+    getAllPost(user.uid).then(setPosts);
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
   return (
-    <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
-    >
-      <h1>Hello {user.fbUser.displayName}! </h1>
-      <p>Your Bio: {user.bio}</p>
-      <p>Click the button below to logout!</p>
-      <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
-        Sign Out
-      </Button>
+    <div className="text-center my-4">
+      <Link href="/post/new" passHref>
+        <Button>Add A Post</Button>
+      </Link>
+      <div className="d-flex flex-wrap">
+        {posts.map((post) => (
+          <PostCard key={post.id} postObj={post} onUpdate={getPosts} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,170 +1,123 @@
-// import React, { useEffect, useState } from 'react';
-// import { useRouter } from 'next/router';
-// import PropTypes from 'prop-types';
-// import FloatingLabel from 'react-bootstrap/FloatingLabel';
-// import Form from 'react-bootstrap/Form';
-// import { Button } from 'react-bootstrap';
-// import { useAuth } from '../../utils/context/authContext';
-// import { getAuthors } from '../../api/authorData';
-// import { getAllPost, createPost, updatePost } from '../api/posts';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
+import Form from 'react-bootstrap/Form';
+import { Button } from 'react-bootstrap';
+import { getCategories } from '../api/categories';
+import { createPost, updatePost } from '../api/posts';
+import { useAuth } from '../utils/context/authContext';
 
-// const initialState = {
-//   image_url: '',
-//   post_title: '',
-//   post_content: '',
-//   post_author: '',
-//   created_on: '',
+const initialState = {
+  id: 0,
+  image_url: '',
+  post_title: '',
+  post_content: '',
+  created_on: '',
+  categories: 0,
+};
 
-// };
+const PostForm = ({ postObj }) => {
+  const [categoryTypes, setCategoryTypes] = useState([]);
+  const [currentPost, setCurrentPost] = useState(initialState);
+  const router = useRouter();
+  const { user } = useAuth();
 
-// function BookForm({ obj }) {
-//   const [formInput, setFormInput] = useState(initialState);
-//   const [authors, setAuthors] = useState([]);
-//   const router = useRouter();
-//   const { user } = useAuth();
+  useEffect(() => {
+    getCategories().then(setCategoryTypes);
 
-//   useEffect(() => {
-//     getAuthors(user.uid).then(setAuthors);
+    if (postObj.id) {
+      setCurrentPost({
+        id: postObj.id,
+        post_title: postObj.post_title,
+        post_content: postObj.post_content,
+        categories: postObj.categories,
+        post_author: user.id, // Check if user exists before accessing id
+      });
+    }
+  }, [postObj, user]);
 
-//     if (obj.firebaseKey) setFormInput(obj);
-//   }, [obj, user]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCurrentPost((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormInput((prevState) => ({
-//       ...prevState,
-//       [name]: value,
-//     }));
-//   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (obj.firebaseKey) {
-//       updateBook(formInput).then(() => router.push(`/book/${obj.firebaseKey}`));
-//     } else {
-//       const payload = { ...formInput, uid: user.uid };
-//       createBook(payload).then(({ name }) => {
-//         const patchPayload = { firebaseKey: name };
-//         updateBook(patchPayload).then(() => {
-//           router.push('/');
-//         });
-//       });
-//     }
-//   };
+    if (postObj.id) {
+      const update = {
+        id: currentPost.id,
+        post_title: currentPost.post_title,
+        image_url: currentPost.image_url,
+        post_content: currentPost.post_content,
+        categories: Number(currentPost.categories),
+        post_author: user.id,
+        created_on: currentPost.created_on,
+      };
+      await updatePost(currentPost.id, update);
+      router.push(`/posts/${postObj.id}`);
+    } else {
+      const payload = { ...currentPost, post_author: user.id };
+      await createPost(payload);
+      router.push('/');
+    }
+  };
+  return (
+    <div className="post-form-container">
+      <Form onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Label className="post-form">Post Title</Form.Label>
+          <Form.Control name="post_title" placeholder="Enter Post Title Here" required value={currentPost.post_title} onChange={handleChange} />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Post Content</Form.Label>
+          <Form.Control name="post_content" placeholder="Content" required value={currentPost.post_content} onChange={handleChange} />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>image Url</Form.Label>
+          <Form.Control name="image_url" placeholder="image url here" required value={currentPost.image_url} onChange={handleChange} />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Category Type</Form.Label>
+          <Form.Select
+            name="categories"
+            required
+            value={currentPost.categories}
+            onChange={handleChange}
+          >
+            <option value="">Select Category</option>
+            {categoryTypes.map((type) => (
+              <option key={type.id} value={type.id}>
+                {type.label}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+        <Button variant="primary" type="submit" className="post-enter-btn">
+          {postObj.id ? 'Update' : 'Create'} Submit
+        </Button>
+      </Form>
+    </div>
+  );
+};
 
-//   return (
-//     <Form onSubmit={handleSubmit}>
-//       <h2 className="text-white mt-5">{obj.firebaseKey ? 'Update' : 'Create'} Book</h2>
+PostForm.propTypes = {
+  postObj: PropTypes.shape({
+    image_url: PropTypes.string,
+    post_title: PropTypes.string,
+    post_author: PropTypes.number,
+    id: PropTypes.number,
+    created_on: PropTypes.string,
+    post_content: PropTypes.string,
+    categories: PropTypes.number,
+  }),
+};
 
-//       {/* TITLE INPUT  */}
-//       <FloatingLabel controlId="floatingInput1" label="Book Title" className="mb-3">
-//         <Form.Control
-//           type="text"
-//           placeholder="Enter a title"
-//           name="title"
-//           value={formInput.title}
-//           onChange={handleChange}
-//           required
-//         />
-//       </FloatingLabel>
+PostForm.defaultProps = {
+  postObj: initialState,
+};
 
-//       {/* IMAGE INPUT  */}
-//       <FloatingLabel controlId="floatingInput2" label="Book Image" className="mb-3">
-//         <Form.Control
-//           type="url"
-//           placeholder="Enter an image url"
-//           name="image"
-//           value={formInput.image}
-//           onChange={handleChange}
-//           required
-//         />
-//       </FloatingLabel>
-
-//       {/* PRICE INPUT  */}
-//       <FloatingLabel controlId="floatingInput3" label="Book Price" className="mb-3">
-//         <Form.Control
-//           type="text"
-//           placeholder="Enter price"
-//           name="price"
-//           value={formInput.price}
-//           onChange={handleChange}
-//           required
-//         />
-//       </FloatingLabel>
-
-//       {/* AUTHOR SELECT  */}
-//       <FloatingLabel controlId="floatingSelect" label="Author">
-//         <Form.Select
-//           aria-label="Author"
-//           name="author_id"
-//           onChange={handleChange}
-//           className="mb-3"
-//           value={obj.author_id} // FIXME: modify code to remove error
-//           required
-//         >
-//           <option value="">Select an Author</option>
-//           {
-//             authors.map((author) => (
-//               <option
-//                 key={author.firebaseKey}
-//                 value={author.firebaseKey}
-//               >
-//                 {author.first_name} {author.last_name}
-//               </option>
-//             ))
-//           }
-//         </Form.Select>
-//       </FloatingLabel>
-
-//       {/* DESCRIPTION TEXTAREA  */}
-//       <FloatingLabel controlId="floatingTextarea" label="Description" className="mb-3">
-//         <Form.Control
-//           as="textarea"
-//           placeholder="Description"
-//           style={{ height: '100px' }}
-//           name="description"
-//           value={formInput.description}
-//           onChange={handleChange}
-//           required
-//         />
-//       </FloatingLabel>
-
-//       {/* A WAY TO HANDLE UPDATES FOR TOGGLES, RADIOS, ETC  */}
-//       <Form.Check
-//         className="text-white mb-3"
-//         type="switch"
-//         id="sale"
-//         name="sale"
-//         label="On Sale?"
-//         checked={formInput.sale}
-//         onChange={(e) => {
-//           setFormInput((prevState) => ({
-//             ...prevState,
-//             sale: e.target.checked,
-//           }));
-//         }}
-//       />
-
-//       {/* SUBMIT BUTTON  */}
-//       <Button type="submit">{obj.firebaseKey ? 'Update' : 'Create'} Book</Button>
-//     </Form>
-//   );
-// }
-
-// BookForm.propTypes = {
-//   obj: PropTypes.shape({
-//     description: PropTypes.string,
-//     image: PropTypes.string,
-//     price: PropTypes.string,
-//     sale: PropTypes.bool,
-//     title: PropTypes.string,
-//     author_id: PropTypes.string,
-//     firebaseKey: PropTypes.string,
-//   }),
-// };
-
-// BookForm.defaultProps = {
-//   obj: initialState,
-// };
-
-// export default BookForm;
+export default PostForm;

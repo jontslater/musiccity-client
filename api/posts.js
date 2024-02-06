@@ -19,7 +19,7 @@ const getAllPost = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const createPost = () => (payload) => new Promise((resolve, reject) => {
+const createPost = (payload) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/posts`, {
     method: 'POST',
     headers: {

@@ -1,7 +1,7 @@
 import { clientCredentials } from '../utils/client';
 
 const getCategories = () => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/category`, {
+  fetch(`${clientCredentials.databaseURL}/categories`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ const getCategories = () => new Promise((resolve, reject) => {
 });
 
 const getSingleCategory = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/category/${id}`)
+  fetch(`${clientCredentials.databaseURL}/categories/${id}`)
     .then((response) => response.json())
     .then(resolve)
     .catch(reject);

@@ -1,18 +1,17 @@
-// import React, { useEffect, useState } from 'react';
-// import Link from 'next/link';
-// import { Button } from 'react-bootstrap';
-// import { useAuth } from '../utils/context/authContext';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { getSinglePost } from '../api/posts';
 
-// export default function viewPost() {
-//   const [postDetails, setPostDetails] = useState({});
-//   const router = useRouter();
+export default function viewPost() {
+  const [postDetails, setPostDetails] = useState({});
+  const router = useRouter();
 
-//   useEffect(() => {
-//     viewPostDetails(id).then(setPostDetails);
-//   }, [id]);
-import React from 'react';
+  const { id } = router.query;
 
-export default function Profile() {
+  useEffect(() => {
+    getSinglePost(id).then(setPostDetails);
+  }, [id]);
+
   return (
     <>
       <div className="card mb-3">

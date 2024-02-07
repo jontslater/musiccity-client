@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-
-import { getSinglePost } from '../../../api/posts';
-import PostForm from '../../../components/postForm';
+import { getSinglePost } from '../../../utils/data/postData';
+import PostForm from '../../../components/forms/PostForm';
 
 export default function EditPost() {
   const router = useRouter();

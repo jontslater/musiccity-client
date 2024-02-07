@@ -21,7 +21,7 @@ export default function ViewPost() {
     console.warn('Deleting post with ID:', id);
     if (window.confirm('Delete Post?')) {
       deletePost(id).then(() => {
-        router.push('/');
+        router.push('/posts');
       });
     }
   };
@@ -36,8 +36,8 @@ export default function ViewPost() {
 
   return (
     <>
-      <div>{(postDetails.post_author?.id === user.id) ? (<Button className="delete-button" variant="black" onClick={deleteThisPost}>Delete This Post</Button>) : ''}</div>
-      <div>{(postDetails.post_author?.id === user.id) ? (<Button className="edit-button" variant="black" href={`/posts/edit/${postDetails.id}`}>Edit This Post</Button>) : ''}</div>
+      <div>{(postDetails.rare_user?.id === user.id) ? (<Button className="delete-button" variant="black" onClick={deleteThisPost}>Delete This Post</Button>) : ''}</div>
+      <div>{(postDetails.post_author?.id === user.id) ? (<Button className="delete-button" variant="black" href={`/posts/edit/${postDetails.id}`}>Edit This Post</Button>) : ''}</div>
       <div className="card mb-3">
         <div className="card-body">
 

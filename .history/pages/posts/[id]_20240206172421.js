@@ -4,31 +4,20 @@ import { Button } from 'react-bootstrap';
 import { getSinglePost, deletePost } from '../../api/posts';
 import { getAllReactions } from '../../api/reactions';
 import { getPostReactions } from '../../api/postReactions';
-import { useAuth } from '../../utils/context/authContext';
 
-export default function ViewPost() {
+export default function ViewPost(postObj) {
   const [postDetails, setPostDetails] = useState({});
   const [reactions, setReactions] = useState([]);
   const router = useRouter();
-  const { user } = useAuth();
 
   const { id } = router.query;
   const getAllTheReactions = () => {
     getAllReactions().then(setReactions);
   };
 
-  const deleteThisPost = () => {
-    console.warn('Deleting post with ID:', id);
-    if (window.confirm('Delete Post?')) {
-      deletePost(id).then(() => {
-        router.push('/');
-      });
-    }
-  };
-
   useEffect(() => {
     getAllTheReactions();
-    getSinglePost(id, user.uid)
+    getSinglePost(id)
       .then((data) => setPostDetails(data));
     getPostReactions(id)
       .then((reaction) => setReactions(reaction));
@@ -36,8 +25,9 @@ export default function ViewPost() {
 
   return (
     <>
-      <div>{(postDetails.post_author?.id === user.id) ? (<Button className="delete-button" variant="black" onClick={deleteThisPost}>Delete This Post</Button>) : ''}</div>
-      <div>{(postDetails.post_author?.id === user.id) ? (<Button className="edit-button" variant="black" href={`/posts/edit/${postDetails.id}`}>Edit This Post</Button>) : ''}</div>
+      <Button variant="danger" onClick={deletePost} className="m-2">
+        Delete Post
+      </Button>
       <div className="card mb-3">
         <div className="card-body">
 

@@ -1,43 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Button } from 'react-bootstrap';
-import { getSinglePost, deletePost } from '../../api/posts';
+import { getSinglePost } from '../../api/posts';
 import { getAllReactions } from '../../api/reactions';
-import { getPostReactions } from '../../api/postReactions';
-import { useAuth } from '../../utils/context/authContext';
 
 export default function ViewPost() {
   const [postDetails, setPostDetails] = useState({});
   const [reactions, setReactions] = useState([]);
   const router = useRouter();
-  const { user } = useAuth();
 
   const { id } = router.query;
   const getAllTheReactions = () => {
-    getAllReactions().then(setReactions);
-  };
-
-  const deleteThisPost = () => {
-    console.warn('Deleting post with ID:', id);
-    if (window.confirm('Delete Post?')) {
-      deletePost(id).then(() => {
-        router.push('/');
-      });
-    }
+    getAllReactions(id).then(setReactions);
   };
 
   useEffect(() => {
     getAllTheReactions();
-    getSinglePost(id, user.uid)
+    getSinglePost(id)
       .then((data) => setPostDetails(data));
-    getPostReactions(id)
-      .then((reaction) => setReactions(reaction));
   }, [id]);
 
   return (
     <>
-      <div>{(postDetails.post_author?.id === user.id) ? (<Button className="delete-button" variant="black" onClick={deleteThisPost}>Delete This Post</Button>) : ''}</div>
-      <div>{(postDetails.post_author?.id === user.id) ? (<Button className="edit-button" variant="black" href={`/posts/edit/${postDetails.id}`}>Edit This Post</Button>) : ''}</div>
       <div className="card mb-3">
         <div className="card-body">
 
@@ -50,8 +33,7 @@ export default function ViewPost() {
       <div className="d-flex flex-wrap">
         {reactions.map((react) => (
           <button type="button" key={react.id}>
-            {react.reaction_id?.label}
-
+            <img src={image_url} alt={react.alt_text} style={{ width: '50px' }} />
           </button>
         ))}
       </div>

@@ -28,14 +28,14 @@ const PostForm = ({ postObj }) => {
     if (postObj.id) {
       setCurrentPost({
         id: postObj.id,
-        postTitle: postObj.post_title,
-        postContent: postObj.post_content,
+        post_title: postObj.post_title,
+        post_content: postObj.post_content,
         categories: postObj.categories?.id,
-        postAuthor: user.id,
-        imageUrl: postObj.image_url,
+        post_author: user.id,
+        image_url: postObj.image_url,
       });
     }
-  }, [postObj]);
+  }, [postObj, user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,12 +51,12 @@ const PostForm = ({ postObj }) => {
     if (postObj.id) {
       const update = {
         id: postObj.id,
-        postTitle: currentPost.post_title,
-        imageUrl: currentPost.image_url,
-        postContent: currentPost.post_content,
-        categories: Number(currentPost.categories),
-        postAuthor: user.id,
-        createdOn: currentPost.created_on,
+        post_title: currentPost.post_title,
+        image_url: currentPost.image_url,
+        post_content: currentPost.post_content,
+        categories: currentPost.categories,
+        post_author: user.id,
+        created_on: currentPost.created_on,
       };
       await updatePost(currentPost.id, update);
       router.push(`/posts/${postObj.id}`);
@@ -66,6 +66,7 @@ const PostForm = ({ postObj }) => {
       router.push('/');
     }
   };
+
   return (
     <div className="post-form-container">
       <Form onSubmit={handleSubmit}>
@@ -98,7 +99,7 @@ const PostForm = ({ postObj }) => {
           </Form.Select>
         </Form.Group>
         <Button variant="primary" type="submit" className="post-enter-btn">
-          {postObj.id ? 'Update' : 'Create'} Submit
+          {postObj.id ? 'Update' : 'Create'} Post
         </Button>
       </Form>
     </div>
@@ -109,12 +110,12 @@ PostForm.propTypes = {
   postObj: PropTypes.shape({
     image_url: PropTypes.string,
     post_title: PropTypes.string,
-    post_author: PropTypes.number,
     id: PropTypes.number,
     created_on: PropTypes.string,
     post_content: PropTypes.string,
     categories: PropTypes.number,
   }),
+
 };
 
 PostForm.defaultProps = {

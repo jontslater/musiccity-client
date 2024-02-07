@@ -32,13 +32,13 @@ const createPost = (payload) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const updatePost = (payload, id) => new Promise((resolve, reject) => {
+const updatePost = (id, currentPost) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/posts/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(currentPost),
   })
     .then(resolve)
     .catch(reject);

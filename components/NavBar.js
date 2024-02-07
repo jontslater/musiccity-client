@@ -22,9 +22,9 @@ export default function NavBar() {
             <Link passHref href="/profile">
               <Nav.Link>Profile</Nav.Link>
             </Link>
-            <Link passHref href="/viewPost/">
+            {/* <Link passHref href="/viewPost/">
               <Nav.Link>viewPost</Nav.Link>
-            </Link>
+            </Link> */}
             <Link passHref href="/posts/new">
               <Nav.Link>New Post</Nav.Link>
             </Link>

@@ -21,7 +21,7 @@ export default function ViewPost() {
     console.warn('Deleting post with ID:', id);
     if (window.confirm('Delete Post?')) {
       deletePost(id).then(() => {
-        router.push('/');
+        router.push('/posts');
       });
     }
   };

@@ -28,13 +28,14 @@ const PostForm = ({ postObj }) => {
     if (postObj.id) {
       setCurrentPost({
         id: postObj.id,
-        post_title: postObj.post_title,
-        post_content: postObj.post_content,
-        categories: postObj.categories,
-        post_author: user.id, // Check if user exists before accessing id
+        postTitle: postObj.post_title,
+        postContent: postObj.post_content,
+        categories: postObj.categories?.id,
+        postAuthor: user.id,
+        imageUrl: postObj.image_url,
       });
     }
-  }, [postObj, user]);
+  }, [postObj]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,13 +50,13 @@ const PostForm = ({ postObj }) => {
 
     if (postObj.id) {
       const update = {
-        id: currentPost.id,
-        post_title: currentPost.post_title,
-        image_url: currentPost.image_url,
-        post_content: currentPost.post_content,
+        id: postObj.id,
+        postTitle: currentPost.post_title,
+        imageUrl: currentPost.image_url,
+        postContent: currentPost.post_content,
         categories: Number(currentPost.categories),
-        post_author: user.id,
-        created_on: currentPost.created_on,
+        postAuthor: user.id,
+        createdOn: currentPost.created_on,
       };
       await updatePost(currentPost.id, update);
       router.push(`/posts/${postObj.id}`);

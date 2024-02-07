@@ -35,13 +35,13 @@ function PostCard({ postObj, onUpdate }) {
           </Button>
         </Link>
 
-        <Link href={`/post/${postObj.id}`} passHref>
+        <Link href={`/posts/${postObj.id}`} passHref>
           <Button variant="primary" className="m-2">
             {postObj.categories.label}
           </Button>
         </Link>
 
-        <Link href={`/post/edit/${postObj.id}`} passHref>
+        <Link href={`/posts/edit/${postObj.id}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
 

@@ -30,11 +30,11 @@ export default function ViewPost() {
 
     getPostReactions(id)
       .then((reaction) => setReactions(reaction))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error('Error fetching post reactions:', error));
 
     getAllReactions()
       .then((allReactionsData) => setAllReactions(allReactionsData))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error('Error fetching all reactions:', error));
   }, [id, user.uid]);
 
   return (

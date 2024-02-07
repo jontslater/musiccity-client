@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import { getSinglePost, deletePost } from '../../api/posts';
-import { getAllReactions } from '../../api/reactions';
 import { getPostReactions } from '../../api/postReactions';
 import { useAuth } from '../../utils/context/authContext';
 
 export default function ViewPost() {
   const [postDetails, setPostDetails] = useState({});
   const [reactions, setReactions] = useState([]);
-  const [allReactions, setAllReactions] = useState([]);
   const router = useRouter();
   const { user } = useAuth();
   const { id } = router.query;
@@ -26,15 +24,11 @@ export default function ViewPost() {
   useEffect(() => {
     getSinglePost(id, user.uid)
       .then((data) => setPostDetails(data))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error('Error fetching post:', error));
 
     getPostReactions(id)
       .then((reaction) => setReactions(reaction))
-      .catch((error) => console.error(error));
-
-    getAllReactions()
-      .then((allReactionsData) => setAllReactions(allReactionsData))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error('Error fetching post reactions:', error));
   }, [id, user.uid]);
 
   return (
@@ -63,14 +57,6 @@ export default function ViewPost() {
         {reactions.map((react) => (
           <span key={react.id}>{react.reaction_id?.label}</span>
         ))}
-      </div>
-
-      <div>
-        <ul>
-          {allReactions.map((reaction) => (
-            <button type="button" key={reaction.id}>{reaction.label}</button>
-          ))}
-        </ul>
       </div>
 
       <div>{postDetails.post_content}</div>

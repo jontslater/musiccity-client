@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Button } from 'react-bootstrap';
 import { getSinglePost, deletePost } from '../../api/posts';
-import { getAllReactions } from '../../api/reactions';
+import { getPostReactions,  } from '../../api/postReactions'; 
 import { getPostReactions } from '../../api/postReactions';
 import { useAuth } from '../../utils/context/authContext';
 
@@ -26,15 +26,15 @@ export default function ViewPost() {
   useEffect(() => {
     getSinglePost(id, user.uid)
       .then((data) => setPostDetails(data))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error('Error fetching post:', error));
 
     getPostReactions(id)
       .then((reaction) => setReactions(reaction))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error('Error fetching post reactions:', error));
 
     getAllReactions()
       .then((allReactionsData) => setAllReactions(allReactionsData))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error('Error fetching all reactions:', error));
   }, [id, user.uid]);
 
   return (
@@ -66,9 +66,10 @@ export default function ViewPost() {
       </div>
 
       <div>
+        <h3>All Reactions:</h3>
         <ul>
           {allReactions.map((reaction) => (
-            <button type="button" key={reaction.id}>{reaction.label}</button>
+            <li key={reaction.id}>{reaction.label}</li>
           ))}
         </ul>
       </div>

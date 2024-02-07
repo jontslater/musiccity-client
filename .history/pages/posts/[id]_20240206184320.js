@@ -26,15 +26,15 @@ export default function ViewPost() {
   useEffect(() => {
     getSinglePost(id, user.uid)
       .then((data) => setPostDetails(data))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error('Error fetching post:', error));
 
     getPostReactions(id)
       .then((reaction) => setReactions(reaction))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error('Error fetching post reactions:', error));
 
     getAllReactions()
       .then((allReactionsData) => setAllReactions(allReactionsData))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error('Error fetching all reactions:', error));
   }, [id, user.uid]);
 
   return (

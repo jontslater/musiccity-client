@@ -1,0 +1,48 @@
+@import 'bootstrap/dist/css/bootstrap.css';
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: lightyellow;
+}
+#editButton{
+background-color:rgb(179,179,179) ;
+border-color:black;
+font-weight: bold;
+color: white;
+}
+#addPost{
+  background-color: rgb(180,132,132);
+  border-color:rgb(204,159,155) ;
+  color: rgb(255, 246, 246);
+  font-weight: bold;
+}
+#viewButton{
+  background-color:rgb(151,71,251) ;
+  border-color: black;
+  font-weight: bold;
+  color: white;
+}
+#deleteButton{
+  border-color: black;
+  font-weight: bold;
+}
+
+.proPic{
+  border-radius: 75%;
+}

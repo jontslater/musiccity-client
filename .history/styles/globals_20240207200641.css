@@ -33,7 +33,7 @@ color: white;
   font-weight: bold;
 }
 #viewButton{
-  background-color:rgb(78, 151, 118) ;
+  background-color:rgb(151,71,251) ;
   border-color: black;
   font-weight: bold;
   color: white;
@@ -82,11 +82,5 @@ color: white;
   border-color: transparent;
   margin-left: 2px;
   margin-right: 2px;
-}
-
-.post-reactions{
-  font-family: monospace;
-  font-style: oblique;
-  font-size: medium;
-  font-weight: bold;
+  left: auto;
 }

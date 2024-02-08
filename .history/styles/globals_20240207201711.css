@@ -86,7 +86,5 @@ color: white;
 
 .post-reactions{
   font-family: monospace;
-  font-style: oblique;
-  font-size: medium;
-  font-weight: bold;
+  font-weight: 200;
 }

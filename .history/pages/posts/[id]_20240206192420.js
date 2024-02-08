@@ -61,20 +61,20 @@ export default function ViewPost() {
 
       <div className="d-flex flex-wrap">
         {reactions.map((react) => (
-          <span className="post-reactions" key={react.id}>*{react.reaction_id?.label}</span>
+          <span key={react.id}>{react.reaction_id?.label}</span>
         ))}
       </div>
 
       <div>
         <ul>
           {allReactions.map((reaction) => (
-            <Button className="reaction-buttons" type="button" key={reaction.id}>{reaction.label}</Button>
+            <button type="button" key={reaction.id}>{reaction.label}</button>
           ))}
         </ul>
       </div>
 
-      <div className="proText">{postDetails.post_content}</div>
-      <div className="proText">Category: {postDetails.categories?.label}</div>
+      <div>{postDetails.post_content}</div>
+      <div>Categories: {postDetails.categories?.label}</div>
     </>
   );
 }

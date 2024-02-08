@@ -33,7 +33,7 @@ color: white;
   font-weight: bold;
 }
 #viewButton{
-  background-color:rgb(78, 151, 118) ;
+  background-color:rgb(151,71,251) ;
   border-color: black;
   font-weight: bold;
   color: white;
@@ -50,43 +50,5 @@ color: white;
 
 .proText{
   font-weight:initial;
-  font-style: oblique;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-.card{
-  width: 50%;
-  font-style: italic;
-  font-family:serif;
-}
-
-.edit-button{
-  background-color:cornflowerblue;
-  padding: 5px;
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-
-.delete-button{
-  background-color:firebrick;
-  padding: 5px;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  margin-left: 2px;
-  margin-right: 2px;
-}
-
-.reaction-buttons{
-  background-color: deeppink;
-  color:aliceblue;
-  border-color: transparent;
-  margin-left: 2px;
-  margin-right: 2px;
-}
-
-.post-reactions{
-  font-family: monospace;
-  font-style: oblique;
-  font-size: medium;
-  font-weight: bold;
 }

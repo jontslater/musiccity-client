@@ -37,14 +37,13 @@ export default function Profile() {
               <div className="card mb-3">
                 <div className="card-body">
                   <>
-                    <img src={post.image_url} alt={post.title} style={{ width: '300px' }} />
-                    <h1>{post.post_title}</h1>
-                    <h2>Author: {post.post_author?.first_name} {post.post_author?.last_name}</h2>
-                    <h2>Created on: {post.created_on}</h2>
-
                     <Button variant="primary" className="viewButton">
                       VIEW
                     </Button>
+                    <h1>{post.post_title}</h1>
+                    <h2>Author: {post.post_author?.first_name} {post.post_author?.last_name}</h2>
+                    <h2>Created on: {post.created_on}</h2>
+                    <img src={post.image_url} alt={post.title} style={{ width: '300px' }} />
 
                   </>
                 </div>

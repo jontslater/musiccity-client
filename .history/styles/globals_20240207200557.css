@@ -80,6 +80,5 @@ color: white;
   background-color: deeppink;
   color:aliceblue;
   border-color: transparent;
-  margin-left: 2px;
-  margin-right: 2px;
+  padding: auto;
 }

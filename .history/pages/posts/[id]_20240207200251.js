@@ -73,8 +73,8 @@ export default function ViewPost() {
         </ul>
       </div>
 
-      <div className="proText">{postDetails.post_content}</div>
-      <div className="proText">Category: {postDetails.categories?.label}</div>
+      <div>{postDetails.post_content}</div>
+      <div>Categories: {postDetails.categories?.label}</div>
     </>
   );
 }

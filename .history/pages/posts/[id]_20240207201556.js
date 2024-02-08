@@ -61,7 +61,7 @@ export default function ViewPost() {
 
       <div className="d-flex flex-wrap">
         {reactions.map((react) => (
-          <span className="post-reactions" key={react.id}>*{react.reaction_id?.label}</span>
+          <span key={react.id}>*{react.reaction_id?.label}*</span>
         ))}
       </div>
 

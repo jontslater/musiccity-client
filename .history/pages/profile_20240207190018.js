@@ -23,7 +23,7 @@ export default function Profile() {
 
   return (
     <>
-      <div> <img src={user.fbUser.photoURL} alt="user" style={{ width: '300px' }} />
+      <div> <img src={user.fbUser.photoURL} alt="user" style={{ width: '300px' }} />{user.fbUser.providerData.photoURL}
       </div>
       <div>{user.fbUser.displayName}</div>
       {user.bio}

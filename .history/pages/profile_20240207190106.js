@@ -9,7 +9,7 @@ import { getAllPost } from '../api/posts';
 export default function Profile() {
   const [postDetails, setPostDetails] = useState([]);
   const router = useRouter();
-  const { user } = useAuth({});
+  const { user } = useAuth();
   const { id } = router.query;
 
   const getAllThePosts = () => {

@@ -7,9 +7,10 @@ import { useAuth } from '../utils/context/authContext';
 import { getAllPost } from '../api/posts';
 
 export default function Profile() {
+  // const [profile, setProfile] = useState([]);
   const [postDetails, setPostDetails] = useState([]);
   const router = useRouter();
-  const { user } = useAuth({});
+  const { user } = useAuth();
   const { id } = router.query;
 
   const getAllThePosts = () => {
@@ -23,10 +24,8 @@ export default function Profile() {
 
   return (
     <>
-      <div> <img src={user.fbUser.photoURL} alt="user" style={{ width: '300px' }} />
+      <div><img src={user.fbUser.photoURL} alt="user" width="100px" height="100px" className="user-display-photo" />{user.fbUser.displayName}
       </div>
-      <div>{user.fbUser.displayName}</div>
-      {user.bio}
       <div>
         {postDetails
           .filter((post) => post.post_author && post.post_author.id === user.id)

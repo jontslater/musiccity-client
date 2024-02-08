@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
@@ -7,14 +6,14 @@ import { useAuth } from '../utils/context/authContext';
 import { getAllPost } from '../api/posts';
 
 export default function Profile() {
+  // const [profile, setProfile] = useState([]);
   const [postDetails, setPostDetails] = useState([]);
   const router = useRouter();
-  const { user } = useAuth({});
+  const { user } = useAuth();
   const { id } = router.query;
 
   const getAllThePosts = () => {
     getAllPost(user.uid).then(setPostDetails);
-    console.warn(user);
   };
 
   useEffect(() => {
@@ -23,10 +22,7 @@ export default function Profile() {
 
   return (
     <>
-      <div> <img src={user.fbUser.photoURL} alt="user" style={{ width: '300px' }} />
-      </div>
-      <div>{user.fbUser.displayName}</div>
-      {user.bio}
+      <div>{user.photoURL}</div>
       <div>
         {postDetails
           .filter((post) => post.post_author && post.post_author.id === user.id)

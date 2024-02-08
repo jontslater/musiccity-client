@@ -28,7 +28,7 @@ function PostCard({ postObj, onUpdate }) {
         </Card.Subtitle>
         <Card.Text>{postObj.post_content}</Card.Text>
         <Card.Text>Created on: {postObj.created_on}</Card.Text>
-
+        <Card.Text>{postObj.reaction_count} Reactions</Card.Text>
         <Link href={`/posts/${postObj.id}`} passHref>
           <Button variant="primary" className="m-2">
             VIEW
@@ -62,6 +62,7 @@ PostCard.propTypes = {
     created_on: PropTypes.string,
     post_content: PropTypes.string,
     categories: PropTypes.number,
+    reaction_count: PropTypes.number,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };

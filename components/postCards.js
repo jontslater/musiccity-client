@@ -8,15 +8,35 @@ import { useAuth } from '../utils/context/authContext';
 
 const getCategoryButtonColor = (categories) => {
   switch (categories) {
+    case 'nightlife':
+      return '#693d96';
     case 'art':
-      return '';
-    case '3':
-      return 'warning';
+      return '#b6529b';
+    case 'theater':
+      return 'rgb(149, 69, 69)';
+    case 'nature':
+      return 'green';
     default:
       return 'primary';
   }
 };
 
+const getCategoryBorderColor = (categories) => {
+  switch (categories) {
+    case 'nightlife':
+      return 'black';
+    case 'art':
+      return 'black';
+    case 'theater':
+      return 'black';
+    case 'nature':
+      return 'black';
+    case 'dining':
+      return 'black';
+    default:
+      return 'primary';
+  }
+};
 function PostCard({ postObj, onUpdate }) {
   const { user } = useAuth();
 
@@ -52,7 +72,14 @@ function PostCard({ postObj, onUpdate }) {
         </Link>
 
         <Link href={`/posts/${postObj.id}`} passHref>
-          <Button variant={getCategoryButtonColor(postObj.categories.label)} className="m-2">
+          <Button
+            variant="primary" // or any default variant
+            className="m-2"
+            style={{
+              backgroundColor: getCategoryButtonColor(postObj.categories.label),
+              borderColor: getCategoryBorderColor(postObj.categories.label),
+            }}
+          >
             {postObj.categories.label}
           </Button>
         </Link>

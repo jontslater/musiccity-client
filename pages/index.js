@@ -21,7 +21,7 @@ function Home() {
   return (
     <div className="text-center my-4">
       <Link href="/posts/new" passHref>
-        <Button>Add A Post</Button>
+        <Button id="addPost">Add A Post</Button>
       </Link>
       <div className="d-flex flex-wrap">
         {posts.map((post) => (

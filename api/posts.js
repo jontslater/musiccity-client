@@ -47,9 +47,6 @@ const updatePost = (id, currentPost) => new Promise((resolve, reject) => {
 const deletePost = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/posts/${id}`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
   })
     .then((response) => {
       if (!response.ok) {

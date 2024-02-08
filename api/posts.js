@@ -52,9 +52,8 @@ const deletePost = (id) => new Promise((resolve, reject) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      return response.json();
+      resolve();
     })
-    .then((data) => resolve(data))
     .catch(reject);
 });
 

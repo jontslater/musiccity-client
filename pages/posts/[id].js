@@ -11,7 +11,7 @@ export default function ViewPost() {
   const [postDetails, setPostDetails] = useState({});
   const [reactions, setReactions] = useState([]);
   const [allReactions, setAllReactions] = useState([]);
-  const [, setChange] = useState(true);
+  const [change, setChange] = useState(true);
   const router = useRouter();
   const { user } = useAuth();
   const { id } = router.query;
@@ -59,7 +59,7 @@ export default function ViewPost() {
     getAllReactions()
       .then((allReactionsData) => setAllReactions(allReactionsData))
       .catch((error) => console.error(error));
-  }, [id, user.uid]);
+  }, [id, user.uid, change]);
 
   return (
     <>
